@@ -16,8 +16,13 @@ class ViewController: UIViewController {
     var questionsAsked = 0
     var correctQuestions = 0
     var indexOfSelectedQuestion: Int = 0
+    let gray = UIColor(red: 169/255.0, green: 169/255.0, blue: 169/255.0, alpha: 1.0) //gray color
+    let white = UIColor(red: 255/255.0, green: 255/255.0, blue: 255/255.0, alpha: 1.0) //white color
+
     
     var gameSound: SystemSoundID = 0
+    var correctSound: SystemSoundID = 1
+    var incorrectSound: SystemSoundID = 2
     var trivia = QuestionModel()
     
     
@@ -27,11 +32,15 @@ class ViewController: UIViewController {
     @IBOutlet weak var option2: UIButton!
     @IBOutlet weak var option3: UIButton!
     @IBOutlet weak var option4: UIButton!
+    @IBOutlet weak var outcomeText: UILabel!
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        outcomeText.textAlignment = .Center;
         loadGameStartSound()
+        loadQuestionCorrectSound()
+        loadQuestionWrongSound()
         questionsPerRound = trivia.trivia.count
         // Start game
         playGameStartSound()
@@ -52,6 +61,7 @@ class ViewController: UIViewController {
         option3.setTitle(questionDictionary["Option 3"], forState: .Normal)
         option4.setTitle(questionDictionary["Option 4"], forState: .Normal)
         playAgainButton.hidden = true
+        outcomeText.hidden = true
     }
     
     func displayScore() {
@@ -60,6 +70,7 @@ class ViewController: UIViewController {
         option2.hidden = true
         option3.hidden = true
         option4.hidden = true
+        outcomeText.hidden = true
         
         // Display play again button
         playAgainButton.hidden = false
@@ -75,12 +86,65 @@ class ViewController: UIViewController {
         let selectedQuestionDict = trivia.trivia[indexOfSelectedQuestion]
         let correctAnswer = selectedQuestionDict["Answer"]
         
-        if (sender === option1 &&  correctAnswer == "Option 1") || (sender === option2 &&  correctAnswer == "Option 2") || (sender === option3 &&  correctAnswer == "Option 3") || (sender === option4 &&  correctAnswer == "Option 4") {
-            correctQuestions += 1
-            questionField.text = "Correct!"
-        } else {
-            questionField.text = "Sorry, wrong answer!"
+        switch sender {
+        case option1:
+            option2.setTitleColor(gray, forState: .Normal)
+            option3.setTitleColor(gray, forState: .Normal)
+            option4.setTitleColor(gray, forState: .Normal)
+            if correctAnswer == "Option 1" {
+                playCorrectSound()
+                correctQuestions += 1
+                outcomeText.text = "Correct!"
+                outcomeText.textColor = UIColor.greenColor()
+            } else {
+                playIncorrectSound()
+                outcomeText.text = "Sorry, wrong answer!"
+                outcomeText.textColor = UIColor.orangeColor()
+            }
+        case option2:
+            option1.setTitleColor(gray, forState: .Normal)
+            option3.setTitleColor(gray, forState: .Normal)
+            option4.setTitleColor(gray, forState: .Normal)
+            if correctAnswer == "Option 2" {
+                playCorrectSound()
+                correctQuestions += 1
+                outcomeText.text = "Correct!"
+                outcomeText.textColor = UIColor.greenColor()
+            } else {
+                playIncorrectSound()
+                outcomeText.text = "Sorry, wrong answer!"
+                outcomeText.textColor = UIColor.orangeColor()
+            }
+        case option3:
+            option1.setTitleColor(gray, forState: .Normal)
+            option2.setTitleColor(gray, forState: .Normal)
+            option4.setTitleColor(gray, forState: .Normal)
+            if correctAnswer == "Option 3" {
+                playCorrectSound()
+                correctQuestions += 1
+                outcomeText.text = "Correct!"
+                outcomeText.textColor = UIColor.greenColor()
+            } else {
+                playIncorrectSound()
+                outcomeText.text = "Sorry, wrong answer!"
+                outcomeText.textColor = UIColor.orangeColor()
+            }
+        default:
+            option1.setTitleColor(gray, forState: .Normal)
+            option2.setTitleColor(gray, forState: .Normal)
+            option3.setTitleColor(gray, forState: .Normal)
+            if correctAnswer == "Option 4" {
+                playCorrectSound()
+                correctQuestions += 1
+                outcomeText.text = "Correct!"
+                outcomeText.textColor = UIColor.greenColor()
+            } else {
+                playIncorrectSound()
+                outcomeText.text = "Sorry, wrong answer!"
+                outcomeText.textColor = UIColor.orangeColor()
+            }
         }
+        outcomeText.hidden = false
         trivia.popQuestion(indexOfSelectedQuestion)
         loadNextRoundWithDelay(seconds: 2)
     }
@@ -91,6 +155,11 @@ class ViewController: UIViewController {
             displayScore()
         } else {
             // Continue game
+            outcomeText.hidden = true
+            option1.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+            option2.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+            option3.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+            option4.setTitleColor(UIColor.whiteColor(), forState: .Normal)
             displayQuestion()
         }
     }
@@ -130,8 +199,28 @@ class ViewController: UIViewController {
         AudioServicesCreateSystemSoundID(soundURL, &gameSound)
     }
     
+    func loadQuestionCorrectSound() {
+        let pathToSoundFile = NSBundle.mainBundle().pathForResource("ting", ofType: "wav")
+        let soundURL = NSURL(fileURLWithPath: pathToSoundFile!)
+        AudioServicesCreateSystemSoundID(soundURL, &correctSound)
+    }
+    
+    func loadQuestionWrongSound() {
+        let pathToSoundFile = NSBundle.mainBundle().pathForResource("buzzer", ofType: "wav")
+        let soundURL = NSURL(fileURLWithPath: pathToSoundFile!)
+        AudioServicesCreateSystemSoundID(soundURL, &incorrectSound)
+    }
+    
     func playGameStartSound() {
         AudioServicesPlaySystemSound(gameSound)
+    }
+    
+    func playCorrectSound() {
+        AudioServicesPlaySystemSound(correctSound)
+    }
+    
+    func playIncorrectSound() {
+        AudioServicesPlaySystemSound(incorrectSound)
     }
 }
 

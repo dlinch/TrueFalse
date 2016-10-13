@@ -74,6 +74,12 @@
                                     <action selector="checkAnswer:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qfk-Z2-crr"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Text" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="29a-I0-pTJ">
+                                <rect key="frame" x="120" y="94" width="135" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.031372549019607843" green="0.16862745098039217" blue="0.24313725490196078" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -89,12 +95,15 @@
                             <constraint firstAttribute="trailingMargin" secondItem="J1V-MS-ECi" secondAttribute="trailing" constant="18" id="WN4-Jw-W8O"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Kyd-3a-eQh" secondAttribute="trailing" constant="18" id="YXz-TP-xYa"/>
                             <constraint firstAttribute="trailingMargin" secondItem="AS4-HX-g9f" secondAttribute="trailing" constant="18" id="Zlz-sl-ixv"/>
+                            <constraint firstItem="J1V-MS-ECi" firstAttribute="top" secondItem="29a-I0-pTJ" secondAttribute="bottom" constant="32" id="bYB-us-AOW"/>
+                            <constraint firstItem="29a-I0-pTJ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="100" id="cH2-Rn-QQR"/>
                             <constraint firstItem="pPC-Pm-jNH" firstAttribute="top" secondItem="J1V-MS-ECi" secondAttribute="bottom" constant="24" id="dlQ-Ji-Vzo"/>
-                            <constraint firstItem="J1V-MS-ECi" firstAttribute="top" secondItem="I3V-ih-1Ky" secondAttribute="bottom" constant="61" id="enm-9N-GNl"/>
                             <constraint firstItem="J1V-MS-ECi" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="17" id="kVn-3D-uTc"/>
+                            <constraint firstItem="29a-I0-pTJ" firstAttribute="top" secondItem="I3V-ih-1Ky" secondAttribute="bottom" constant="8" id="lA8-07-ZaG"/>
                             <constraint firstItem="I3V-ih-1Ky" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="17" id="lPb-bV-G7g"/>
                             <constraint firstAttribute="trailingMargin" secondItem="K17-uy-MvB" secondAttribute="trailing" constant="18" id="yJl-Qe-AXe"/>
                             <constraint firstAttribute="trailingMargin" secondItem="I3V-ih-1Ky" secondAttribute="trailing" constant="18" id="zqE-lE-UaI"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="29a-I0-pTJ" secondAttribute="trailing" constant="100" id="zzV-j5-vz5"/>
                         </constraints>
                     </view>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
@@ -108,6 +117,7 @@
                         <outlet property="option2" destination="pPC-Pm-jNH" id="cXB-SG-l4t"/>
                         <outlet property="option3" destination="AS4-HX-g9f" id="RGv-ZL-7QM"/>
                         <outlet property="option4" destination="Kyd-3a-eQh" id="5i6-98-a9C"/>
+                        <outlet property="outcomeText" destination="29a-I0-pTJ" id="cxb-KT-31i"/>
                         <outlet property="playAgainButton" destination="K17-uy-MvB" id="0Bx-Cm-ye0"/>
                         <outlet property="questionField" destination="I3V-ih-1Ky" id="7UI-o2-ATi"/>
                     </connections>
